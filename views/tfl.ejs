@@ -3,9 +3,8 @@
 <% var set = []%>
 <% data.forEach(function(item){ %>
 <% set.push(item["commonName"]) %>
-   <% }) %>
+<% }) %>
 <% set=set.filter((a,i)=>i==set.indexOf(a)) %>
-
 <% set.forEach(function(item){ %>
     <li><%=item%> </li>
 <% }) %>
