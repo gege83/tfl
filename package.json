@@ -1,7 +1,6 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "",
   "main": "api.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +12,15 @@
     "express": "^4.14.0",
     "google-maps": "^3.2.1",
     "request": "^2.74.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aghh1504/tfl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aghh1504/tfl/issues"
+  },
+  "homepage": "https://github.com/aghh1504/tfl#readme",
+  "description": ""
 }
