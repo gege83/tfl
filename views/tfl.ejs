@@ -5,7 +5,7 @@
 <% set.push(item["commonName"]) %>
    <% }) %>
 <% set=set.filter((a,i)=>i==set.indexOf(a)) %>
-<% set=set.sort() %>
+
 <% set.forEach(function(item){ %>
     <li><%=item%> </li>
 <% }) %>
