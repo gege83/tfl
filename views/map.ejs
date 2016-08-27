@@ -23,7 +23,7 @@
 
       function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 13, 
+          zoom: 13,
           center: {lat:  <%=data["results"][0]["geometry"]["location"]["lat"] %>, lng: <%=data["results"][0]["geometry"]["location"]["lng"]%>}
         });
 

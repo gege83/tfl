@@ -17,24 +17,19 @@ app.get("/tfl", function(req,res){
     var url ="https://api.tfl.gov.uk/line/"+query+"/stoppoints"
         request(url, function(error,response,body){
             if(!error && response.statusCode == 200){
-                var data = JSON.parse(body);
-                    res.render("tfl", {data: data});
-         } 
-          stop = data[0]["commonName"];
-               console.log(data[0]["lat"], data[0]["lon"]);
-        
-    });
+                var data = JSON.parse(body)
+                    .map((item) => {
+                        return {
+                            name: item.commonName,
+                            lat: item.lat,
+                            lon: item.lon,
+                            href: `https://www.google.com/maps?q=loc:${item.lat},${item.lon}`
+                        } 
+                    })
+                res.render("tfl", {data});
+            }
+       });
 });
-// looking for lng adress
-// app.get("/map", function(req,res){
-//     var url ="https://maps.googleapis.com/maps/api/geocode/json?address="+"Annesley Avenue"+"London+UK&AIzaSyAy7pE9UvY-M1mENT3ER49LyOjztju6wIs";
-//         request(url, function(error,response,body){
-//             if(!error && response.statusCode == 200){
-//               var data = JSON.parse(body);
-//                 res.render("map", {data: data});
-//             } 
-//         });
-//     });
 
 
  app.get("/map", function(req,res){
@@ -43,7 +38,7 @@ app.get("/tfl", function(req,res){
         request(url, function(error,response,body){
             if(!error && response.statusCode == 200){
               var data = JSON.parse(body);
-                res.render("map", {data: data});
+               res.render("map", {data});
             } 
         });
     });
