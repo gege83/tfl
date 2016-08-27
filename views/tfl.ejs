@@ -1,21 +1,21 @@
-
-
 <a href="/">Search again</a>
 
-
-
-<% var set = []%>
-<% data.forEach(function(item){ %>
-<% set.push(item["commonName"]) %>
+<ul id="items">
+<% data.forEach(function(link){ %>
+    <li><a data-lat="<%= link.lat %>" data-lon="<%= link.lon %>" href="<%= link.href %>"><%= link.name %></a></li>
 <% }) %>
-<% set=set.filter((a,i)=>i==set.indexOf(a)) %>
-<% set.forEach(function(item){ %>
-<%String(item)%>
-    <li><a href="https://maps.googleapis.com/maps/api/geocode/json?address="+ <%item%> +"London+UK&AIzaSyAy7pE9UvY-M1mENT3ER49LyOjztju6wIs"><%=item%></a> </li>
-<% }) %>
+</ul>
 
-
+<script>
+    document.getElementById('items').addEventListener('click', function(event){
+        event.preventDefault()
+        
+        let el = event.target
+        let lat = el.getAttribute('data-lat')
+        let lon = el.getAttribute('data-lon')
+        console.log('latlon', el, lat, lon)
+      });
     
-   
+</script>
 
 
