@@ -1,21 +1,43 @@
-<a href="/">Search again</a>
-
-<ul id="items">
-<% data.forEach(function(link){ %>
-    <li><a data-lat="<%= link.lat %>" data-lon="<%= link.lon %>" href="<%= link.href %>"><%= link.name %></a></li>
-<% }) %>
-</ul>
-
-<script>
-    document.getElementById('items').addEventListener('click', function(event){
-        event.preventDefault()
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  </head>
+  <body>
+<div class="row">
+  <div class="col-md-4 col-sm-4 col-xs-4">
+        <a href="/">Search again</a>
         
-        let el = event.target
-        let lat = el.getAttribute('data-lat')
-        let lon = el.getAttribute('data-lon')
-        console.log('latlon', el, lat, lon)
-      });
+        <ul id="items">
+        
+        <% data.forEach(function(link){ %>
+            <li><a src="<%=link.href%>"><%= link.name %></a></li>
+        <% }) %>
+        </ul>
+        
+        <script>
+            document.getElementById('items').addEventListener('click', function(event){
+                event.preventDefault()
+                
+                var frame = document.getElementById("openLink")
+                var e = event.target.getAttribute("src")
+                var iframe = frame.setAttribute("src",e)
+                // let el = event.target
+                // let lat = el.getAttribute('data-lat')
+                // let lon = el.getAttribute('data-lon')
+                
+              });
+            
+        </script>
+
+</div>
+<div class="col-md-8 col-sm-8 col-xs-8">
     
-</script>
+    <iframe  id="openLink" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d4966.313758984106!2d-0.1065368!3d51.5103378!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDMwJzM3LjMiTiAwwrAwNicxNS4zIlc!5e0!3m2!1sen!2sus!4v1472302684758" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+    
+ </div>
 
-
+ 
+  </body>
+</html>
