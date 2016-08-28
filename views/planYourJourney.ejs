@@ -1,0 +1,18 @@
+<a href="/s">Search again</a>
+
+   
+<% var set = []%>
+<% data.arrivalPoint.forEach(function(item){ %>
+<% set.push(item["commonName"]) %>
+   <% }) %>
+<% set=set.filter((a,i)=>i==set.indexOf(a)) %>
+<% set=set.sort() %>
+<% set.forEach(function(item){ %>
+    <li><%=item%> </li>
+<% }) %>
+
+    
+
+   
+   
+

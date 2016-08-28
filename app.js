@@ -1,6 +1,7 @@
 var express = require("express");
 var request = require("request");
-var map = require("./controller/googleMap")
+var map = require("./controller/googleMap");
+var busLocations = require('./controller/bus-locations.js');
 var app = express();
 var stop;
 app.set('view engine', 'ejs');
@@ -34,7 +35,7 @@ app.get("/tfl", function(req,res){
             }
        });
 });
-
+// all route on map
 app.get("/route", function(req,res){
     var query = req.query.search;
     var url ="https://api.tfl.gov.uk/line/"+query+"/stoppoints"
@@ -44,18 +45,42 @@ app.get("/route", function(req,res){
                     .map((item) => {
                         return {
                             location: item.commonName+ ", London",
-                            stopover: false
+                           // stopover: true
                             
                         } 
                     })
                     console.log(data)
                 res.render("mapRoute", {map, data});
+            
             }
        });
     
     //console.log(map)
 })
+//bus stop on map
  app.get("/map", map.mapping);
+ 
+// markers all route
+app.get("/maps", function(req,res){
+    var query = req.query.stop;
+    var url ="https://api.tfl.gov.uk/line/"+query+"/stoppoints";
+    var data;
+        request(url, function(error,response,body){
+            if(!error && response.statusCode == 200){
+
+                //parse data through required function located in the js folder
+                data = busLocations.getLocationsArray(JSON.parse(body));
+
+                //take data array, and render it into the map view
+                res.render("maps",{data: data});
+         } else {
+             res.render("error");
+         }});
+
+});
+
+ 
+ 
 
 
 app.listen(process.env.PORT, process.env.IP, function(){

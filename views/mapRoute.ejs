@@ -43,22 +43,24 @@
         directionsDisplay.setMap(map);
 
        
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
+   calculateAndDisplayRoute(directionsService, directionsDisplay);
   };
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-        directionsService.route({
-          origin:"<%=data.shift().location%>",
-          destination:"<%=data.pop().location%>",
-          //waypoints: <%-JSON.stringify(data)%>,
-          travelMode: 'DRIVING'
-        }, function(response, status) {
-          if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-          } else {
-            window.alert('Directions request failed due to ' + status);
+            directionsService.route(
+                {
+                  origin:"<%=data.shift().location%>",
+                  destination:"<%=data.pop().location%>",
+                 
+                  travelMode: 'DRIVING'
+                },
+                function(response, status) {
+                  if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                  } else {
+                    window.alert('Directions request failed due to ' + status);
+                  }
+            });
           }
-        });
-      }
   
      
     </script>
