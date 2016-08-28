@@ -32,34 +32,32 @@
   <body>
     <div id="map"></div>
     <script>
-    
-  function initMap() {
-        var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 7,
-          center: {lat: 41.85, lng: -87.65}
-        });
-        directionsDisplay.setMap(map);
+	var markers = <%-JSON.stringify(markers)%>
+	
+	function initMap() {
+	        var map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 13,
+			center: {lat: <%=center.lat%>, lng: <%=center.long%>}
+		});
+		showMarkers(markers, map);
+	};
 
-       
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
-  };
-    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-        directionsService.route({
-          origin:"<%=data.shift().location%>",
-          destination:"<%=data.pop().location%>",
-          //waypoints: <%-JSON.stringify(data)%>,
-          travelMode: 'DRIVING'
-        }, function(response, status) {
-          if (status === 'OK') {
-            directionsDisplay.setDirections(response);
-          } else {
-            window.alert('Directions request failed due to ' + status);
-          }
-        });
-      }
-  
+	function showMarkers(markers, map){
+		var infowindow = new google.maps.InfoWindow();
+		markers.forEach(function(markerData, index){
+			var marker = new google.maps.Marker({
+				position: new google.maps.LatLng(markerData.lat, markerData.long),
+				map: map
+			});
+
+      			google.maps.event.addListener(marker, 'click', markerEvent.bind(null, marker, markerData, map, infowindow));
+		});
+	}
+
+	function markerEvent(marker, markerData, map, infowindow) {
+		infowindow.setContent(markerData.location);
+		infowindow.open(map, marker);
+	}
      
     </script>
     <script async defer

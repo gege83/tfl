@@ -44,12 +44,14 @@ app.get("/route", function(req,res){
                     .map((item) => {
                         return {
                             location: item.commonName+ ", London",
+			lat: item.lat,
+			long: item.lon,
                             stopover: false
-                            
                         } 
                     })
-                    console.log(data)
-                res.render("mapRoute", {map, data});
+                    var center = data[0];
+		var markers = data;
+                res.render("mapRoute", {center, markers});
             }
        });
     
@@ -57,7 +59,7 @@ app.get("/route", function(req,res){
 })
  app.get("/map", map.mapping);
 
-
-app.listen(process.env.PORT, process.env.IP, function(){
-    console.log("movie server started");
+console.log(process.env.PORT, process.env.IP);
+app.listen(process.env.PORT || 3000, process.env.IP || '127.0.0.1', function(){
+    console.log("tfl server started");
 });
